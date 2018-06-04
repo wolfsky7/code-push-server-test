@@ -45,7 +45,7 @@ router.get('/updateCheck', (req, res, next) => {
   var clientManager = new ClientManager();
   clientManager.updateCheckFromCache(deploymentKey, appVersion, label, packageHash)
   .then((rs) => {
-    log.debug(rs);
+    log.error(rs);
     res.send({"updateInfo":rs});
   })
   .catch((e) => {
