@@ -6,6 +6,9 @@ var middleware = require('../core/middleware');
 var ClientManager = require('../core/services/client-manager');
 var _ = require('lodash');
 
+var log4js = require('log4js');
+var log = log4js.getLogger("cps:apps");
+
 router.get('/', (req, res, next) => {
   res.render('index', { title: 'CodePushServer' });
 });
@@ -42,6 +45,7 @@ router.get('/updateCheck', (req, res, next) => {
   var clientManager = new ClientManager();
   clientManager.updateCheckFromCache(deploymentKey, appVersion, label, packageHash)
   .then((rs) => {
+    log.debug(rs);
     res.send({"updateInfo":rs});
   })
   .catch((e) => {
